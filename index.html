@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ẩm Thực Việt Nam</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #8B1A1A;
+    --red-light: #C0392B;
+    --gold: #B8860B;
+    --gold-light: #D4A017;
+    --cream: #FDF6E3;
+    --cream-dark: #F5E6C8;
+    --brown: #4A2C0A;
+    --brown-mid: #6B3E1A;
+    --text-dark: #1A0A00;
+    --text-mid: #3D2200;
+    --text-light: #7A5230;
+    --white: #FEFEFE;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(26, 10, 0, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(184,134,11,0.3);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--gold-light);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-logo span { color: var(--white); font-style: italic; }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px;
+    background: var(--gold-light);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* HERO */
+  #trang-chu {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      linear-gradient(135deg, rgba(26,10,0,0.85) 0%, rgba(74,44,10,0.7) 50%, rgba(139,26,26,0.6) 100%),
+      url('https://images.pexels.com/photos/25949466/pexels-photo-25949466.jpeg') center/cover;
+    z-index: 0;
+  }
+
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      repeating-linear-gradient(45deg, rgba(184,134,11,0.04) 0, rgba(184,134,11,0.04) 1px, transparent 0, transparent 50%);
+    background-size: 20px 20px;
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    padding: 2rem;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    border: 1px solid rgba(212,160,23,0.5);
+    padding: 0.4rem 1.2rem;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 0.5rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+    display: block;
+  }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: rgba(255,255,255,0.7);
+    font-style: italic;
+    margin: 1rem 0 2.5rem;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.6s ease both;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 0.9rem 2.2rem;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 0.9rem 2.2rem;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--gold-light);
+    color: var(--gold-light);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    animation: scrollLine 1.5s ease-in-out infinite;
+  }
+
+  /* SECTION SHARED */
+  section { padding: 6rem 2rem; }
+
+  .section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 4rem;
+  }
+
+  .section-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--brown);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--red); }
+
+  .section-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    color: var(--text-light);
+    font-style: italic;
+    line-height: 1.8;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(to right, var(--gold), var(--red));
+    margin: 1.5rem auto;
+  }
+
+  /* FEATURED (Trang chủ grid) */
+  .region-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .region-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .region-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+  }
+
+  .region-card:hover .region-card-img { transform: scale(1.08); }
+
+  .region-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26,10,0,0.9) 0%, rgba(26,10,0,0.2) 50%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem 1.5rem;
+    transition: background 0.3s;
+  }
+
+  .region-card:hover .region-card-overlay {
+    background: linear-gradient(to top, rgba(139,26,26,0.9) 0%, rgba(26,10,0,0.3) 50%, transparent 100%);
+  }
+
+  .region-card-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .region-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .region-card-desc {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.4s;
+  }
+
+  .region-card:hover .region-card-desc {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .region-card-arrow {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 34px;
+    color: var(--white);
+    font-size: 1rem;
+    margin-top: 1rem;
+    transition: all 0.3s;
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+
+  .region-card:hover .region-card-arrow {
+    opacity: 1;
+    transform: translateX(0);
+    border-color: var(--gold-light);
+    color: var(--gold-light);
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--brown);
+    padding: 3rem 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    color: var(--gold-light);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+  }
+
+  /* FOOD SECTIONS */
+  .food-section { background: var(--white); }
+  .food-section:nth-child(even) { background: var(--cream); }
+
+  .food-intro {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+  }
+
+  .food-intro.reverse { direction: rtl; }
+  .food-intro.reverse > * { direction: ltr; }
+
+  .food-intro-img {
+    position: relative;
+  }
+
+  .food-intro-img img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+  }
+
+  .food-intro-img::before {
+    content: '';
+    position: absolute;
+    top: -12px; left: -12px;
+    right: 12px; bottom: 12px;
+    border: 2px solid var(--gold);
+    z-index: -1;
+  }
+
+  .food-badge {
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 80px; height: 80px;
+    background: var(--red);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.65rem;
+    color: var(--white);
+    text-align: center;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.4;
+    border-radius: 50%;
+    font-style: italic;
+    padding: 10px;
+  }
+
+  .food-intro-text {}
+
+  .food-intro-text .section-eyebrow { text-align: left; }
+  .food-intro-text .section-title { text-align: left; }
+  .food-intro-text .divider { margin: 1.5rem 0; }
+  .food-intro-text p {
+    color: var(--text-mid);
+    line-height: 1.9;
+    font-size: 0.95rem;
+    margin-bottom: 1.2rem;
+  }
+
+  /* DISHES GRID */
+  .dishes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .dish-card {
+    background: var(--white);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(184,134,11,0.15);
+  }
+
+  .dish-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(26,10,0,0.15);
+  }
+
+  .dish-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+
+  .dish-card:hover img { transform: scale(1.05); }
+
+  .dish-card-body {
+    padding: 1.2rem 1.5rem 1.5rem;
+    background: var(--cream);
+    border-top: 2px solid var(--gold);
+  }
+
+  .dish-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--brown);
+    margin-bottom: 0.5rem;
+  }
+
+  .dish-origin {
+    font-size: 0.7rem;
+    color: var(--red);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+
+  .dish-desc {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  /* QUOTE */
+  .quote-section {
+    background: var(--brown);
+    text-align: center;
+    padding: 5rem 2rem;
+  }
+
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    color: var(--white);
+    font-style: italic;
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.6;
+  }
+
+  .quote-author {
+    font-size: 0.75rem;
+    color: var(--gold-light);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--text-dark);
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: 0.82rem;
+  }
+
+  footer .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--gold-light);
+    margin-bottom: 1rem;
+  }
+
+  footer a { color: var(--gold-light); text-decoration: none; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollLine {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(0.6); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .region-grid { grid-template-columns: 1fr; }
+    .region-card { aspect-ratio: 16/9; }
+    .food-intro { grid-template-columns: 1fr; gap: 2rem; }
+    .food-intro.reverse { direction: ltr; }
+    .food-intro-img::before { display: none; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-logo">Ẩm Thực <span>Việt Nam</span></div>
+  <ul class="nav-links">
+    <li><a href="#trang-chu">Trang chủ</a></li>
+    <li><a href="#mien-bac">Miền Bắc</a></li>
+    <li><a href="#mien-trung">Miền Trung</a></li>
+    <li><a href="#mien-nam">Miền Nam</a></li>
+  </ul>
+</nav>
+
+<!-- HERO / TRANG CHỦ -->
+<section id="trang-chu">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Khám phá hương vị Việt Nam</div>
+    <h1 class="hero-title">
+      Ẩm Thực
+      <em>Việt Nam</em>
+    </h1>
+    <p class="hero-sub">Tinh hoa ba miền — từ phương Bắc đến phương Nam</p>
+    <div class="hero-buttons">
+      <a href="#mien-bac" class="btn-primary">Khám phá ngay</a>
+      <a href="#mien-trung" class="btn-outline">Tìm hiểu thêm</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Cuộn xuống</span>
+  </div>
+</section>
+
+<!-- REGION CARDS -->
+<section style="padding: 2px; background: #1A0A00;">
+  <div class="region-grid">
+    <a href="#mien-bac" class="region-card">
+      <img class="region-card-img" src="https://images.pexels.com/photos/27928436/pexels-photo-27928436.png" alt="Ẩm thực miền Bắc">
+      <div class="region-card-overlay">
+        <div class="region-card-tag">Vùng đất ngàn năm văn hiến</div>
+        <h3 class="region-card-title">Ẩm thực Miền Bắc</h3>
+        <p class="region-card-desc">Tinh tế, thanh nhã, đậm đà hương vị truyền thống. Phở, bún chả, chả cá Lã Vọng...</p>
+        <div class="region-card-arrow">→</div>
+      </div>
+    </a>
+    <a href="#mien-trung" class="region-card">
+      <img class="region-card-img" src="https://www.lagunalangco.com/wp-content/uploads/2025/04/am-thuc-hue-1.jpg" alt="Ẩm thực miền Trung">
+      <div class="region-card-overlay">
+        <div class="region-card-tag">Cung đình & dân dã</div>
+        <h3 class="region-card-title">Ẩm thực Miền Trung</h3>
+        <p class="region-card-desc">Cay nồng, sắc màu rực rỡ, đa dạng từ cung đình Huế đến phố cổ Hội An...</p>
+        <div class="region-card-arrow">→</div>
+      </div>
+    </a>
+    <a href="#mien-nam" class="region-card">
+      <img class="region-card-img" src="https://monngonmoingay.com/wp-content/uploads/2025/07/thuc-don-7-ngay-trong-tuan-mien-nam-3.jpg" alt="Ẩm thực miền Nam">
+      <div class="region-card-overlay">
+        <div class="region-card-tag">Phóng khoáng & đậm ngọt</div>
+        <h3 class="region-card-title">Ẩm thực Miền Nam</h3>
+        <p class="region-card-desc">Ngọt ngào, phong phú, hội tụ sắc tộc. Hủ tiếu, bánh mì Sài Gòn, cơm tấm...</p>
+        <div class="region-card-arrow">→</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div style="background: #2C1A06; padding: 4rem 2rem;">
+  <div class="stats-bar" style="max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); text-align: center; gap: 2rem;">
+    <div>
+      <div class="stat-num">3</div>
+      <div class="stat-label">Miền văn hoá</div>
+    </div>
+    <div>
+      <div class="stat-num">500+</div>
+      <div class="stat-label">Món đặc sản</div>
+    </div>
+    <div>
+      <div class="stat-num">4000</div>
+      <div class="stat-label">Năm lịch sử</div>
+    </div>
+    <div>
+      <div class="stat-num">34/div>
+      <div class="stat-label">Tỉnh thành</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE -->
+<div class="quote-section">
+  <div class="quote-text">"Ẩm thực Việt Nam không chỉ là thức ăn — đó là câu chuyện về văn hoá, con người và cả tâm hồn dân tộc."</div>
+  <div class="quote-author">— Triết lý ẩm thực Việt —</div>
+</div>
+
+<!-- ẨM THỰC MIỀN BẮC -->
+<section id="mien-bac" class="food-section" style="background: var(--cream);">
+  <div class="food-intro" style="max-width: 1100px; margin: 0 auto 4rem;">
+    <div class="food-intro-img">
+      <img src="https://images.pexels.com/photos/27928436/pexels-photo-27928436.png" alt="Ẩm thực miền Bắc">
+      <div class="food-badge">Thanh<br>nhã<br>& tinh tế</div>
+    </div>
+    <div class="food-intro-text">
+      <div class="section-eyebrow">Vùng đất Thăng Long</div>
+      <h2 class="section-title">Ẩm thực <em>Miền Bắc</em></h2>
+      <div class="divider" style="margin-left: 0;"></div>
+      <p>Ẩm thực miền Bắc mang đặc trưng thanh nhã, tinh tế với màu sắc không quá sặc sỡ, ít dùng đường nhưng đậm đà gia vị. Người miền Bắc ưa vị mặn vừa, chua nhẹ, không thiên về cay như miền Trung hay ngọt như miền Nam.</p>
+      <p>Phở Hà Nội với nước dùng trong vắt, ngọt tự nhiên từ xương; bún chả đặc trưng với miếng chả nướng thơm lừng; chả cá Lã Vọng với hương vị đặc biệt không thể nào quên... Tất cả tạo nên bức tranh ẩm thực phong phú, đặc sắc của đất kinh kỳ.</p>
+      <p>Mỗi món ăn đều mang trong mình câu chuyện lịch sử, từ những tiệc cung đình thời Lý-Trần đến bữa ăn bình dân ven hồ Hoàn Kiếm.</p>
+    </div>
+  </div>
+
+  <div class="dishes-grid" style="max-width: 1100px; margin: 0 auto;">
+    <div class="dish-card">
+      <img src="https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=500&q=80" alt="Phở Hà Nội">
+      <div class="dish-card-body">
+        <div class="dish-origin">Hà Nội</div>
+        <div class="dish-name">Phở Hà Nội</div>
+        <div class="dish-desc">Nước dùng trong, ngọt tự nhiên từ xương bò hầm kỹ. Bánh phở mềm dai, thịt bò tươi ngon, ăn cùng giá, chanh, ớt và rau mùi.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://images.pexels.com/photos/3858270/pexels-photo-3858270.jpeg" alt="Bún chả">
+      <div class="dish-card-body">
+        <div class="dish-origin">Hà Nội</div>
+        <div class="dish-name">Bún Chả Hà Nội</div>
+        <div class="dish-desc">Chả nướng thơm phức, bún trắng mềm, nước chấm chua ngọt pha theo đúng tỉ lệ bí truyền. Món ăn trưa không thể thiếu của người Hà Nội.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://images.pexels.com/photos/13847417/pexels-photo-13847417.jpeg" alt="Bánh cuốn">
+      <div class="dish-card-body">
+        <div class="dish-origin">Hà Nội - Thanh Trì</div>
+        <div class="dish-name">Bánh Cuốn Thanh Trì</div>
+        <div class="dish-desc">Lớp bánh mỏng mịn như lụa, nhân thịt và mộc nhĩ thơm ngon. Chấm nước mắm cà cuống — đặc sản không thể nhầm lẫn.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://cdn.tgdd.vn/Files/2020/04/14/1248880/cach-lam-cha-ca-la-vong-chuan-bi-ha-noi-ngay-tai-nha-202203041340429167.jpg" alt="Chả cá Lã Vọng">
+      <div class="dish-card-body">
+        <div class="dish-origin">Phố Chả Cá, Hà Nội</div>
+        <div class="dish-name">Chả Cá Lã Vọng</div>
+        <div class="dish-desc">Cá lăng tẩm ướp thì là, nghệ, ăn nóng trên chảo mỡ thơm lừng. Ăn kèm bún, rau sống, lạc rang và mắm tôm.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/cach_nau_bun_rieu_thit_0c047cb9d3.jpg" alt="Bún riêu">
+      <div class="dish-card-body">
+        <div class="dish-origin">Hà Nội</div>
+        <div class="dish-name">Bún Riêu Cua</div>
+        <div class="dish-desc">Nước dùng cà chua đậm đà, gạch cua vàng tươi, đậu phụ rán và riêu cua. Vị chua thanh, béo ngậy rất đặc trưng.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://assets.unileversolutions.com/recipes-v2/246691.jpg" alt="Nem cuốn">
+      <div class="dish-card-body">
+        <div class="dish-origin">Hà Nội</div>
+        <div class="dish-name">Nem Cuốn & Nem Rán</div>
+        <div class="dish-desc">Nem cuốn tươi mát với tôm, thịt, bún và rau sống. Nem rán vàng giòn thơm phức — hai phong cách, một xuất xứ.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ẨM THỰC MIỀN TRUNG -->
+<section id="mien-trung" class="food-section" style="background: #FFF8F0;">
+  <div class="food-intro" style="max-width: 1100px; margin: 0 auto 4rem; direction: rtl;">
+    <div class="food-intro-img" style="direction: ltr;">
+      <img src="https://www.lagunalangco.com/wp-content/uploads/2025/04/am-thuc-hue-1.jpg" alt="Ẩm thực miền Trung">
+      <div class="food-badge" style="background: #8B4513;">Cung<br>đình<br>& cay nồng</div>
+    </div>
+    <div class="food-intro-text" style="direction: ltr;">
+      <div class="section-eyebrow" style="color: #8B4513;">Cố đô Huế & Phố Hội</div>
+      <h2 class="section-title" style="color: #4A2800;">Ẩm thực <em style="color: #8B4513;">Miền Trung</em></h2>
+      <div class="divider" style="margin-left: 0; background: linear-gradient(to right, #B8860B, #8B4513);"></div>
+      <p>Ẩm thực miền Trung nổi bật với vị cay nồng, màu sắc đỏ đẹp mắt, đặc trưng bởi mắm ruốc và các loại mắm lên men. Đây là nơi giao thoa giữa truyền thống cung đình Huế và sự phóng khoáng của biển cả.</p>
+      <p>Bún bò Huế thơm nồng sả và ruốc; bánh mì Hội An với lớp vỏ giòn tan; mì Quảng đậm đà nước nhân béo ngậy. Mỗi địa phương có bản sắc riêng nhưng đều mang tinh thần mạnh mẽ, phóng khoáng của người miền Trung.</p>
+      <p>Ẩm thực cung đình Huế từng phục vụ vua chúa với hàng chục món tinh tế nay đã trở thành di sản văn hoá quý giá.</p>
+    </div>
+  </div>
+
+  <div class="dishes-grid" style="max-width: 1100px; margin: 0 auto;">
+    <div class="dish-card">
+      <img src="https://images.pexels.com/photos/7715477/pexels-photo-7715477.jpeg" alt="Bún bò Huế">
+      <div class="dish-card-body" style="border-top-color: #8B4513;">
+        <div class="dish-origin" style="color: #8B4513;">Huế</div>
+        <div class="dish-name" style="color: #4A2800;">Bún Bò Huế</div>
+        <div class="dish-desc">Nước lèo đậm đà từ xương bò hầm với sả, ớt và mắm ruốc. Màu đỏ đặc trưng, vị cay nồng ấm áp không giống bất kỳ đâu.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/mi_quang_phu_chiem_1ed1430e57.jpg" alt="Mì Quảng">
+      <div class="dish-card-body" style="border-top-color: #8B4513;">
+        <div class="dish-origin" style="color: #8B4513;">Quảng Nam</div>
+        <div class="dish-name" style="color: #4A2800;">Mì Quảng</div>
+        <div class="dish-desc">Sợi mì vàng ươm từ gạo lứt, nước nhân tôm cua béo ngậy ít ỏi, ăn cùng rau sống, bánh tráng và lạc rang.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://static.vinwonders.com/2022/10/cao-lau-hoi-an-banner.jpg" alt="Cao Lầu">
+      <div class="dish-card-body" style="border-top-color: #8B4513;">
+        <div class="dish-origin" style="color: #8B4513;">Hội An</div>
+        <div class="dish-name" style="color: #4A2800;">Cao Lầu Hội An</div>
+        <div class="dish-desc">Sợi mì đặc biệt chỉ làm được từ nước giếng Bá Lễ. Thịt xá xíu, tép mỡ giòn và rau thơm — món ăn biểu tượng phố Hội.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://ecooking.vn/upload/filemanager/images/Kho%C3%A1%20h%E1%BB%8Dc%20l%C3%A0m%20b%C3%A1nh%20x%C3%A8o/thanh-pham-mon-an-trong-khoa-hoc-lam-banh-xeo-tai-eric-vu-cooking-class.jpg" alt="Bánh Xèo miền Trung">
+      <div class="dish-card-body" style="border-top-color: #8B4513;">
+        <div class="dish-origin" style="color: #8B4513;">Đà Nẵng</div>
+        <div class="dish-name" style="color: #4A2800;">Bánh Xèo Miền Trung</div>
+        <div class="dish-desc">Kích thước nhỏ nhắn, vỏ giòn thơm nghệ, nhân tôm thịt và giá đỗ. Cuốn rau sống chấm nước mắm chua ngọt.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://nhn.1cdn.vn/2023/04/08/com-am-phu-hue-02_1631074972.jpg" alt="Cơm Âm Phủ">
+      <div class="dish-card-body" style="border-top-color: #8B4513;">
+        <div class="dish-origin" style="color: #8B4513;">Huế</div>
+        <div class="dish-name" style="color: #4A2800;">Cơm Âm Phủ Huế</div>
+        <div class="dish-desc">Đĩa cơm cung đình với nhiều loại nhân đặc trưng, sắp xếp công phu và đẹp mắt — tinh hoa của bếp hoàng gia.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://lalago.vn/wp-content/uploads/2025/10/banh-beo-nha-trang-2.jpg" alt="Bánh Bèo">
+      <div class="dish-card-body" style="border-top-color: #8B4513;">
+        <div class="dish-origin" style="color: #8B4513;">Huế</div>
+        <div class="dish-name" style="color: #4A2800;">Bánh Bèo Chén Huế</div>
+        <div class="dish-desc">Bánh gạo mềm trong chén nhỏ, phủ tép khô, hành phi thơm và mỡ hành bóng bẩy. Ăn cùng nước mắm ngọt đặc trưng.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ẨM THỰC MIỀN NAM -->
+<section id="mien-nam" class="food-section" style="background: var(--cream);">
+  <div class="food-intro" style="max-width: 1100px; margin: 0 auto 4rem;">
+    <div class="food-intro-img">
+      <img src="https://monngonmoingay.com/wp-content/uploads/2025/07/thuc-don-7-ngay-trong-tuan-mien-nam-3.jpg" alt="Ẩm thực miền Nam">
+      <div class="food-badge" style="background: #1A6B2A;">Ngọt<br>ngào<br>& phong phú</div>
+    </div>
+    <div class="food-intro-text">
+      <div class="section-eyebrow" style="color: #1A6B2A;">Đất phương Nam</div>
+      <h2 class="section-title" style="color: #0D3A14;">Ẩm thực <em style="color: #1A6B2A;">Miền Nam</em></h2>
+      <div class="divider" style="margin-left: 0; background: linear-gradient(to right, #B8860B, #1A6B2A);"></div>
+      <p>Ẩm thực miền Nam mang hơi thở phóng khoáng, ngọt ngào và đa dạng của vùng sông nước Cửu Long. Người miền Nam ưa dùng nhiều đường, dừa và cá biển tươi ngon, tạo nên những món ăn vừa đậm đà vừa dễ ăn.</p>
+      <p>Hủ tiếu Nam Vang sóng sánh nước trong; bánh mì Sài Gòn giòn tan với nhân phong phú; cơm tấm sườn bì chả thơm lừng... Ẩm thực miền Nam còn chịu ảnh hưởng của người Hoa, Khmer và cả Tây phương.</p>
+      <p>Mỗi buổi sáng Sài Gòn tấp nập, mỗi bữa cơm gia đình miền Tây đều là khoảnh khắc sum vầy ấm áp qua từng món ăn.</p>
+    </div>
+  </div>
+
+  <div class="dishes-grid" style="max-width: 1100px; margin: 0 auto;">
+    <div class="dish-card">
+      <img src="https://i.ytimg.com/vi/hoGy_7zrRK0/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCTG7Rw_2FBwwCfwsF4oWATCw7fcg" alt="Hủ tiếu Nam Vang">
+      <div class="dish-card-body" style="border-top-color: #1A6B2A;">
+        <div class="dish-origin" style="color: #1A6B2A;">TP. Hồ Chí Minh</div>
+        <div class="dish-name" style="color: #0D3A14;">Hủ Tiếu Nam Vang</div>
+        <div class="dish-desc">Sợi hủ tiếu dai mềm, nước dùng trong ngọt thanh từ xương heo và tôm khô. Ăn khô hoặc nước đều tuyệt vời.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://static.vinwonders.com/production/com-tam-sai-gon-thumb.jpg" alt="Cơm tấm">
+      <div class="dish-card-body" style="border-top-color: #1A6B2A;">
+        <div class="dish-origin" style="color: #1A6B2A;">Sài Gòn</div>
+        <div class="dish-name" style="color: #0D3A14;">Cơm Tấm Sài Gòn</div>
+        <div class="dish-desc">Gạo tấm dẻo thơm, sườn bì chả nướng thơm phức. Ăn kèm bì, trứng ốp la và nước mắm chua ngọt đặc trưng Nam Bộ.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://img.vietcetera.com/uploads/images/31-dec-2024/dscf0592.jpg" alt="Bánh mì Sài Gòn">
+      <div class="dish-card-body" style="border-top-color: #1A6B2A;">
+        <div class="dish-origin" style="color: #1A6B2A;">Sài Gòn</div>
+        <div class="dish-name" style="color: #0D3A14;">Bánh Mì Sài Gòn</div>
+        <div class="dish-desc">Vỏ bánh giòn tan, nhân phong phú từ thịt nguội, chả lụa, pate, rau sống và ớt. Di sản ẩm thực của người Việt với cả thế giới.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://toptentravel.com.vn/Data/Sites/1/News/8398/lau-mam-net-van-hoa-am-thuc-dac-trung-dam-chat-mien-tay-1.jpg" alt="Lẩu mắm">
+      <div class="dish-card-body" style="border-top-color: #1A6B2A;">
+        <div class="dish-origin" style="color: #1A6B2A;">Miền Tây</div>
+        <div class="dish-name" style="color: #0D3A14;">Lẩu Mắm Miền Tây</div>
+        <div class="dish-desc">Nước lẩu đậm đà từ mắm cá linh, béo ngậy, ăn cùng hải sản tươi và rau đồng mộc mạc. Đặc sản không thể thiếu mùa nước nổi.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://i.ytimg.com/vi/uFBb5sB-2Uc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCAAr4Gm6lahMJUQKJ-lGmETeGDaQ" alt="Bánh xèo miền Nam">
+      <div class="dish-card-body" style="border-top-color: #1A6B2A;">
+        <div class="dish-origin" style="color: #1A6B2A;">Miền Nam</div>
+        <div class="dish-name" style="color: #0D3A14;">Bánh Xèo Miền Nam</div>
+        <div class="dish-desc">Chiếc bánh to rộng, vỏ giòn vàng ươm từ bột gạo pha nghệ, nhân tôm thịt nấm rơm. Cuốn cùng rau sống đa dạng.</div>
+      </div>
+    </div>
+    <div class="dish-card">
+      <img src="https://vcdn1-dulich.vnecdn.net/2024/10/13/chebamau-7372-1728808450.jpg?w=680&h=0&q=100&dpr=2&fit=crop&s=CP6ANSmDpyEjmBWOKFpYjg" alt="Chè miền Nam">
+      <div class="dish-card-body" style="border-top-color: #1A6B2A;">
+        <div class="dish-origin" style="color: #1A6B2A;">Khắp miền Nam</div>
+        <div class="dish-name" style="color: #0D3A14;">Chè Dừa & Chè Ba Màu</div>
+        <div class="dish-desc">Vị ngọt thanh của nước cốt dừa, màu sắc rực rỡ và đa dạng nguyên liệu. Chè miền Nam ngọt ngào như tâm hồn người dân xứ này.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Ẩm Thực Hà Nội</div>
+  <p style="margin-bottom: 0.5rem;">Khám phá tinh hoa ba miền Việt Nam</p>
+  <p>Trang chủ &nbsp;·&nbsp; <a href="#mien-bac">Miền Bắc</a> &nbsp;·&nbsp; <a href="#mien-trung">Miền Trung</a> &nbsp;·&nbsp; <a href="#mien-nam">Miền Nam</a></p>
+  <p style="margin-top: 1.5rem; font-size: 0.75rem; opacity: 0.4;">© 2025 Ẩm Thực Hà Nội · Tất cả quyền được bảo lưu</p>
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const el = document.querySelector(a.getAttribute('href'));
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.dish-card, .food-intro').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
+
